@@ -1,6 +1,4 @@
-
-// ⚠️ REPLACE THIS WITH YOUR ACTIVATED OMDB API KEY FROM YOUR EMAIL
-const API_KEY = "fad33322"; 
+const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 const BASE_URL = "https://www.omdbapi.com/";
 
 async function fetchMoviesBySearch(searchTerm) {
@@ -18,8 +16,9 @@ async function fetchMoviesBySearch(searchTerm) {
       return { success: false, error: data.Error || "No movies found." };
     }
   } catch (err) {
+    console.error("Fetch failed:", err);
     return { success: false, error: "Network error. Please check your internet connection." };
   }
 }
 
-export default fetchMoviesBySearch 
+export default fetchMoviesBySearch;
