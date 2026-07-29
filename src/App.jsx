@@ -23,31 +23,50 @@ function App() {
 
   // Fetch movie API
   useEffect(() => {
+  let ignore = false;
+
+  const timeoutId = setTimeout(async () => {
     if (!query.trim()) {
-      setMovies([]);
-      setError(null);
+      if (!ignore) {
+        setMovies([]);
+        setError(null);
+        setLoading(false);
+      }
       return;
     }
 
-    let ignore = false;
+    setLoading(true);
+    setError(null);
 
-    const timeoutId = setTimeout(async () => {
-      setLoading(false);
-      setError(null);
+    let result = await fetchMoviesBySearch(query);
 
-      let result = await fetchMoviesBySearch(query);
+    if (ignore) return;
 
-      if (ignore) return;
-    }, 500);
-  });
+    if (result.success) {
+      setMovies(result.movies);
+    } else {
+      setMovies([]);
+      setError(result.error);
+    }
+    setLoading(false);
+  }, 500);
+
+  return () => {
+    ignore = true;
+    clearTimeout(timeoutId);
+  };
+}, [query]); 
+  
 
   //Dummy handlers so jsx don't before adding the funcionalities
   const handleAddWatchlist = (movie) => {
-    console.log("Add clicked: ", movie);
+    if(!watchlist.some((item) => item.imdbID === movie.imdbID)){
+      setWatchlist([...watchlist, movie]);
+    }
   };
 
   const handleRemoveWatchlist = (id) => {
-    console.log("Removed clicked: ", id);
+    setWatchlist(watchlist.filter((item) => item.imdbID !== id))
   };
 
   return (
@@ -66,8 +85,8 @@ function App() {
           <section>
             <h2>🔍 Search Results</h2>
 
-            {loading && <p>Searching...</p>}
-            {error && <p>{error}</p>}
+            {loading && <p className="text-indigo-400 text-center py-4 animate-pulse">Searching...</p>}
+            {error && <p className="text-rose-400 text-center py-4">{error}</p>}
             {!loading && !error && (
               <MovieList movies={movies} onAdd={handleAddWatchlist} />
             )}
