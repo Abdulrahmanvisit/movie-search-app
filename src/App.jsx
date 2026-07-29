@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import fetchMoviesBySearch from "./components/services/omdbApi";
 import SearchBar from "./components/SearchBar";
 import MovieList from "./components/MovieList";
 import WatchList from "./components/WatchList";
@@ -36,7 +37,7 @@ function App() {
 
       let result = await fetchMoviesBySearch(query);
 
-      if(ignore) return;
+      if (ignore) return;
     }, 500);
   });
 
@@ -68,7 +69,8 @@ function App() {
             {loading && <p>Searching...</p>}
             {error && <p>{error}</p>}
             {!loading && !error && (
-              <MovieList movies={movies} onAdd={handleAddWatchlist} />)}
+              <MovieList movies={movies} onAdd={handleAddWatchlist} />
+            )}
           </section>
 
           <section>
