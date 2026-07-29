@@ -13,7 +13,7 @@ function WatchList({items, onRemove})  {
             
             >
                 <span className="font-medium text-slate-200 text-sm truncate">{movie.Title}</span>
-                <button onClick={() => onRemove()}
+                <button onClick={() => onRemove(movie.imdbID)}
                 className="bg-rose-500/10 hover:bg-rose-500/20 text-xs font-medium px-3 py-1.5 rounded-lg border border-rose-500/20 transition active:scale-95"  
                     >Remove</button>
             </div>
