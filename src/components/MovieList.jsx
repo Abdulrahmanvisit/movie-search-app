@@ -4,10 +4,10 @@ function MovieList({movies, onAdd}) {
     }
 
   return (
-    <div>
+    <div className="space-y-3">
         {movies.map((movie) => (
             <div key={movie.imdbID}
-            className="flex items-center gap-4 bg-slate-800 rounded-xl border border-slate-700/60 hover:slate-600 transition "
+            className="flex items-center gap-4 bg-slate-800 rounded-xl border border-slate-700/60 hover:slate-600 transition p-3 "
             >
                 <img src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/150"}
                  alt={movie.Title}

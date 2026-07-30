@@ -2,7 +2,7 @@
 function SearchBar({query, setQuery}) {
 
   return (
-    <div className='relative max-w-xl mx-auto'>
+    <div className='relative max-w-4xl mx-auto'>
         <input 
         type="text"
         value={query}

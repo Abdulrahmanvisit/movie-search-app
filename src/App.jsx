@@ -71,7 +71,7 @@ function App() {
 
   return (
     <div className="">
-      <div className="max-w-md mx-auto px-4">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center space-y-2">
           <h1 className="text-4xl font-extrabold text-indigo-400">
             🎬 Movie Finder
@@ -81,9 +81,9 @@ function App() {
 
         <SearchBar query={query} setQuery={setQuery} />
 
-        <main className="grid grid-cols-1 md:grid-cols-2 ">
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <section>
-            <h2>🔍 Search Results</h2>
+            <h2 className="mb-3">🔍 Search Results</h2>
 
             {loading && <p className="text-indigo-400 text-center py-4 animate-pulse">Searching...</p>}
             {error && <p className="text-rose-400 text-center py-4">{error}</p>}
@@ -93,14 +93,15 @@ function App() {
           </section>
 
           <section>
-            <div>
+            <div className="flex items-center justify-between mb-3">
               <h2>📌 My Watchlist</h2>
-              <span>{watchlist.length} Saved</span>
+              <span className="text-sm text-slate-400">{watchlist.length} Saved</span>
             </div>
+             <WatchList items={watchlist} onRemove={handleRemoveWatchlist} />
           </section>
         </main>
 
-        <WatchList items={watchlist} onRemove={handleRemoveWatchlist} />
+       
       </div>
     </div>
   );
